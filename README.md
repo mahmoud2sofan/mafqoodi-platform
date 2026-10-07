@@ -1,149 +1,84 @@
-# 🇵🇸 مفقودي | Mafqoodi
+# Mafqoodi | مفقودي
 
-> منصة ذكية للمفقودات والموجودات في فلسطين.
+> An AI-powered lost and found platform designed to help people in Palestine report lost and found items and reconnect them with their owners.
 
-## 📌 عن المشروع
+## About the Project
 
-مفقودي هو نظام يساعد الأشخاص في فلسطين على الإبلاغ عن الأشياء
-المفقودة أو التي تم العثور عليها، ثم يستخدم الذكاء الاصطناعي
-للعثور على احتمالية وجود تطابق بين البلاغات.
+**Mafqoodi** is a lost and found platform designed specifically for people in Palestine.
 
-بدل أن يبحث المستخدم يدويًا بين مئات البلاغات، يقوم النظام
-بتحليل الصور والوصف والموقع والوقت والعلامات التجارية وغيرها
-للعثور على أفضل التطابقات.
+When someone loses an item such as a phone, laptop, wallet, bag, or any other personal belonging, they can create a lost item report with information such as images, description, location, and date.
 
----
+When someone finds an item, they can create a found item report with the information they have.
 
-# 🎯 المشكلة
+The main idea behind Mafqoodi is to automatically connect related lost and found reports.
 
-عند فقدان غرض مثل:
+Instead of requiring users to manually search through hundreds of reports, the system uses an AI-powered matching engine to analyze the information in lost and found reports and estimate how likely they are to refer to the same item.
 
-- 📱 هاتف
-- 💻 لابتوب
-- 🎧 سماعات
-- 👛 محفظة
-- 🪪 بطاقة شخصية
-- 🎒 حقيبة
-- 🔑 مفاتيح
-
-غالبًا لا توجد طريقة منظمة وموثوقة للعثور عليه.
-
-المشكلة ليست فقط في العثور على الغرض، بل أيضًا في:
-
-- معرفة هل الغرض الموجود هو نفس الغرض المفقود
-- التأكد من أن الشخص الذي يطالب بالغرض هو صاحبه الحقيقي
-- تقليل البلاغات الوهمية
-- ربط البلاغات المتشابهة تلقائيًا
+The result is a **match score** that helps users identify the most relevant potential matches.
 
 ---
 
-# 💡 فكرة النظام
+## The Problem
 
-العملية الأساسية:
+When someone loses an item, they usually have to search in different places:
 
-User Lost Item
-        ↓
-رفع صورة + وصف + مكان + وقت
-        ↓
-تخزين البلاغ
-        ↓
-User Found Item
-        ↓
-رفع صورة + وصف + مكان + وقت
-        ↓
-AI Matching Engine
-        ↓
-البحث عن أفضل التطابقات
-        ↓
-Match Score
-        ↓
-Ownership Verification
-        ↓
-Claim
-        ↓
-Return Item
+- Ask people around them.
+- Post in Facebook groups.
+- Search through WhatsApp groups.
+- Check different pages and communities.
+- Wait for someone to post the item they found.
+
+Even if someone finds an item that looks similar, there is still an important question:
+
+**Is this actually the same item?**
+
+The problem becomes even harder when there are many lost and found reports.
+
+Manually comparing every report is time-consuming, and simple keyword searches are not enough to understand similarities between images, descriptions, locations, and other details.
+
+Mafqoodi aims to solve this by organizing the entire process in one platform and using intelligent matching to connect potentially related reports.
 
 ---
 
-# ✨ أهم Features
+## How It Works
 
-## 👤 المستخدم
-
-- إنشاء حساب
-- تسجيل الدخول
-- الإبلاغ عن غرض مفقود
-- الإبلاغ عن غرض تم العثور عليه
-- رفع صور
-- إضافة وصف ومعلومات عن الغرض
-- تحديد المكان والتاريخ
-- البحث والتصفية
-- مشاهدة التطابقات المحتملة
-- المطالبة بغرض
-- إثبات الملكية
-- استقبال الإشعارات
-
-## 🤖 الذكاء الاصطناعي
-
-النظام يستطيع تحليل:
-
-- الصور
-- وصف الغرض
-- نوع الغرض
-- اللون
-- العلامة التجارية
-- الموديل
-- الموقع
-- الوقت
-
-ثم يقوم بـ:
-
-1. استخراج Image Embeddings
-2. استخراج Text Embeddings
-3. البحث عن Candidates
-4. حساب Match Score
-5. ترتيب أفضل التطابقات
-
-## 🔐 إثبات الملكية
-
-لن يعتمد النظام على تشابه الصورة فقط.
-
-يمكن لصاحب الغرض إضافة معلومة خاصة لا تظهر للعامة، مثل:
-
-> يوجد خدش صغير في الجانب الأيسر.
-
-وعند المطالبة بالغرض يتم استخدام هذه المعلومة للتحقق من الملكية.
-
-## 👨‍💼 الإدارة
-
-يوفر النظام لوحة تحكم للمشرف لإدارة:
-
-- المستخدمين
-- البلاغات
-- المطالبات
-- التقارير
-- الحسابات المشبوهة
-
----
-
-# 🏗️ Architecture
-
-سنبدأ باستخدام:
-
-**Modular Monolith**
-
-بدل بناء Microservices من البداية.
+The basic workflow looks like this:
 
 ```text
-                Frontend
-                    │
-                  HTTPS
-                    │
-                    ▼
-             FastAPI Backend
-                    │
-        ┌───────────┼───────────┐
-        ▼           ▼           ▼
-   PostgreSQL    Storage     AI Worker
-                              │
-                              ▼
-                       Matching Engine
+User loses an item
+        |
+        v
+Create Lost Report
+        |
+        v
+Image + Description + Location + Date
+        |
+        v
+Report is stored
+        |
+        v
+Someone finds an item
+        |
+        v
+Create Found Report
+        |
+        v
+Image + Description + Location + Date
+        |
+        v
+AI Matching Engine
+        |
+        v
+Potential Matches
+        |
+        v
+Match Score
+        |
+        v
+User Reviews Match
+        |
+        v
+Ownership Verification
+        |
+        v
+Item is Returned
