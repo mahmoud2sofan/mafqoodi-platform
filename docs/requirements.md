@@ -2,878 +2,1095 @@
 
 ## 1. Project Overview
 
-Mafqoodi is a lost and found platform designed for users in Palestine.
+Mafqoodi is a web-based lost-and-found platform designed primarily for universities and institutions in Palestine.
 
-The system allows users to report lost and found items, search existing reports, discover potential matches using an AI-powered matching system, and manage the process of claiming and returning items.
+The system provides a centralized platform where users can report lost and found items, browse existing reports, search and filter items, receive AI-assisted potential matches, submit claims, and track the return process.
 
-The platform also provides an administration system for moderation, user management, report management, and claim handling.
+The system also provides authorized staff with a management dashboard for reviewing reports, handling claims, managing returned items, and monitoring lost-and-found activity.
 
----
+Administrators can manage users, staff accounts, categories, locations, and system-level settings.
 
-# 2. Actors
-
-The system has three primary actors:
-
-### 2.1 Guest
-
-A user who has not authenticated.
-
-A guest can:
-
-- View public information about the platform.
-- Register for an account.
-- Log in.
-- Browse publicly available reports if allowed by the system.
-
-### 2.2 Registered User
-
-An authenticated user who can interact with the platform.
-
-A registered user can:
-
-- Manage their account.
-- Create lost reports.
-- Create found reports.
-- Search and filter reports.
-- View potential matches.
-- Submit claims.
-- Participate in ownership verification.
-- Receive notifications.
-- Manage their reports.
-
-### 2.3 Administrator
-
-An authorized administrator responsible for managing and moderating the platform.
-
-An administrator can:
-
-- Manage users.
-- Review reports.
-- Review claims.
-- Handle reported content.
-- Handle suspicious activity.
-- Manage return cases.
-- Monitor system activity.
+The first version of Mafqoodi will be developed as a responsive web application. The backend will be API-based so that a mobile application can be developed in the future without replacing the core backend.
 
 ---
 
-# 3. Functional Requirements
+# 2. Project Goals
 
-## 3.1 Authentication and Account Management
+The main goals of Mafqoodi are:
 
-### FR-001 - User Registration
-
-The system shall allow users to create an account.
-
-The registration process shall collect the required information defined by the system.
-
-### FR-002 - User Login
-
-The system shall allow registered users to authenticate using their credentials.
-
-### FR-003 - User Logout
-
-The system shall allow authenticated users to log out.
-
-### FR-004 - Password Security
-
-The system shall securely store user passwords using an appropriate password hashing mechanism.
-
-Passwords shall never be stored in plain text.
-
-### FR-005 - User Profile
-
-The system shall allow users to view and update their profile information.
-
-### FR-006 - Account Status
-
-The system shall support account statuses such as:
-
-- Active
-- Suspended
-- Banned
-
-Administrators shall be able to change account status according to their permissions.
+1. Centralize lost-and-found reports in one platform.
+2. Make reporting lost and found items simple and accessible.
+3. Allow users to search and filter existing reports.
+4. Help users discover potential matches between lost and found items.
+5. Use AI to assist with identifying potential matches.
+6. Reduce the manual workload of lost-and-found staff.
+7. Provide a structured claim and verification process.
+8. Provide staff with a centralized management dashboard.
+9. Provide administrators with system management tools.
+10. Provide useful statistics about lost-and-found activity.
+11. Maintain user privacy and protect sensitive information.
+12. Build a scalable architecture that can support additional institutions in the future.
 
 ---
 
-# 4. Lost Item Reports
+# 3. System Scope
 
-## FR-007 - Create Lost Report
+## 3.1 Included in Version 1
 
-The system shall allow authenticated users to create a lost item report.
+Version 1 shall include:
 
-A lost report may contain:
+- Public homepage
+- Public report browsing
+- Search
+- Filtering
+- User registration
+- User login
+- User logout
+- User profiles
+- Lost item reports
+- Found item reports
+- Report images
+- Report management
+- AI-assisted matching
+- Match suggestions
+- Claim requests
+- Claim verification
+- Item return management
+- Notifications
+- Staff dashboard
+- Report moderation
+- Claim management
+- User management
+- Categories
+- Locations
+- Basic analytics
+- Role-based access control
+- Responsive web design
+- REST API
 
-- Item category
-- Item name
-- Brand
-- Model
-- Color
+## 3.2 Out of Scope for Version 1
+
+The following features are not required for the initial version:
+
+- Native Android application
+- Native iOS application
+- Direct user-to-user messaging
+- Payment processing
+- Delivery or shipping
+- Real-time GPS tracking
+- Facial recognition
+- Facial identification
+- Training a large AI model from scratch
+- Multi-country deployment
+- Complex recommendation systems
+- Advanced university system integration
+
+These features may be considered for future versions.
+
+---
+
+# 4. Actors
+
+The system contains four primary actors.
+
+## 4.1 Guest
+
+A visitor who uses Mafqoodi without authentication.
+
+The guest can:
+
+- View the homepage
+- Browse public reports
+- Search reports
+- Filter reports
+- View public report details
+- Register
+- Log in
+
+The guest cannot:
+
+- Create reports
+- Submit claims
+- Access private user information
+- Manage reports
+- Access staff or administrator dashboards
+
+---
+
+## 4.2 Registered User
+
+A registered user who can report lost or found items and manage their own activity.
+
+The user can:
+
+- Log in
+- Log out
+- Manage their profile
+- Create lost reports
+- Create found reports
+- View their reports
+- Edit eligible reports
+- Withdraw eligible reports
+- View potential matches
+- Submit claims
+- Track claim status
+- View notifications
+- View activity related to their reports and claims
+
+---
+
+## 4.3 Lost and Found Staff
+
+A staff member responsible for operating the institution's lost-and-found system.
+
+The staff member can:
+
+- Access the staff dashboard
+- Review reports
+- Approve reports
+- Reject reports
+- Edit reports when necessary
+- Review claims
+- Verify ownership
+- Approve claims
+- Reject claims
+- Mark items as returned
+- Manage report statuses
+- View potential matches
+- View operational statistics
+
+---
+
+## 4.4 System Administrator
+
+The administrator manages the overall system.
+
+The administrator can:
+
+- Manage users
+- Manage staff accounts
+- Manage roles
+- Manage reports
+- Manage claims
+- Manage categories
+- Manage locations
+- View system analytics
+- View activity logs
+- Suspend users
+- Restore users
+- Manage system settings
+
+---
+
+# 5. Functional Requirements
+
+## 5.1 Public Homepage
+
+### FR-001: Public Homepage
+
+The system shall provide a public homepage that can be accessed without authentication.
+
+The homepage shall provide:
+
+- Mafqoodi branding
+- Navigation
+- Search functionality
+- Lost items section
+- Found items section
+- Information about the platform
+- Login option
+- Registration option
+- Report item call-to-action
+
+### FR-002: Public Navigation
+
+The system shall provide navigation to publicly accessible pages.
+
+The navigation may include:
+
+- Home
+- Lost Items
+- Found Items
+- How It Works
+- About
+- Login
+- Register
+
+---
+
+# 6. Guest Browsing
+
+## FR-003: Browse Reports
+
+The system shall allow guests to browse publicly available lost and found reports.
+
+## FR-004: Search Reports
+
+The system shall allow guests to search reports using keywords.
+
+Search may consider:
+
+- Item title
 - Description
-- Images
-- Lost location
-- Lost date
-- Approximate lost time
-- Private ownership information
-
-### FR-008 - Edit Lost Report
-
-The system shall allow the owner of a lost report to edit its information.
-
-### FR-009 - Delete Lost Report
-
-The system shall allow the owner of a lost report to remove or deactivate the report.
-
-### FR-010 - View Lost Report
-
-The system shall allow users to view the publicly available information of a lost report.
-
-Private ownership information shall not be publicly displayed.
-
-### FR-011 - Lost Report Status
-
-A lost report shall have a status.
-
-Possible statuses may include:
-
-- Active
-- Potential Match
-- Claimed
-- Resolved
-- Closed
-
----
-
-# 5. Found Item Reports
-
-## FR-012 - Create Found Report
-
-The system shall allow authenticated users to create a found item report.
-
-A found report may contain:
-
-- Item category
-- Item name
-- Brand
-- Model
-- Color
-- Description
-- Images
-- Found location
-- Found date
-- Approximate found time
-- Additional information
-
-### FR-013 - Edit Found Report
-
-The system shall allow the creator of a found report to edit its information.
-
-### FR-014 - Delete Found Report
-
-The system shall allow the creator of a found report to remove or deactivate the report.
-
-### FR-015 - View Found Report
-
-The system shall allow users to view publicly available information about a found report.
-
-### FR-016 - Found Report Status
-
-A found report shall have a status.
-
-Possible statuses may include:
-
-- Active
-- Potential Match
-- Claimed
-- Returned
-- Closed
-
----
-
-# 6. Image and File Management
-
-## FR-017 - Upload Images
-
-The system shall allow users to upload images when creating or editing reports.
-
-### FR-018 - Image Validation
-
-The system shall validate uploaded files before storing them.
-
-Validation may include:
-
-- File type
-- File size
-- File format
-- Maximum number of images
-
-### FR-019 - Image Storage
-
-Uploaded images shall be stored separately from the main application database using an appropriate object storage system.
-
-### FR-020 - Image Access
-
-The system shall control access to uploaded images according to the report and user permissions.
-
----
-
-# 7. Search and Filtering
-
-## FR-021 - Search Reports
-
-The system shall allow users to search lost and found reports.
-
-Search may consider information such as:
-
-- Item name
-- Description
-- Brand
-- Model
+- Category
 - Location
 
-### FR-022 - Filter Reports
+## FR-005: Filter Reports
 
-The system shall allow users to filter reports using available attributes.
-
-Possible filters include:
+The system shall allow guests to filter reports by:
 
 - Report type
 - Category
 - Location
 - Date
-- Brand
-- Color
 - Status
 
-### FR-023 - Sort Reports
+## FR-006: Sort Reports
 
-The system shall allow reports to be sorted according to relevant criteria.
+The system shall allow guests to sort reports by:
+
+- Newest
+- Oldest
+- Relevance
+
+## FR-007: View Report Details
+
+The system shall allow guests to view public report details.
+
+Public information may include:
+
+- Item title
+- Item category
+- Description
+- Approximate location
+- Date lost or found
+- Images
+- Report type
+- Current status
+
+Private information shall not be displayed publicly.
+
+---
+
+# 7. User Registration
+
+## FR-008: Register Account
+
+The system shall allow visitors to create a user account.
+
+The registration form shall require:
+
+- Full name
+- Email address
+- Password
+- Password confirmation
+
+## FR-009: Validate Registration
+
+The system shall validate all required registration fields.
+
+## FR-010: Unique Email
+
+The system shall prevent multiple accounts from using the same email address.
+
+## FR-011: Password Security
+
+The system shall securely hash user passwords before storing them.
+
+Passwords shall never be stored as plain text.
+
+---
+
+# 8. Authentication
+
+## FR-012: Login
+
+The system shall allow registered users to log in using their email and password.
+
+## FR-013: Logout
+
+The system shall allow authenticated users to log out securely.
+
+## FR-014: Authentication State
+
+The system shall maintain the authenticated user's session securely.
+
+## FR-015: Protected Pages
+
+The system shall prevent unauthenticated users from accessing protected pages.
+
+## FR-016: Role-Based Access
+
+The system shall restrict system functionality according to the authenticated user's role.
+
+---
+
+# 9. User Profile
+
+## FR-017: View Profile
+
+Users shall be able to view their profile information.
+
+## FR-018: Edit Profile
+
+Users shall be able to update permitted profile information.
+
+Editable information may include:
+
+- Full name
+- Phone number
+- Profile image
+- Password
+
+## FR-019: Account Status
+
+The system shall prevent suspended users from performing restricted actions.
+
+---
+
+# 10. Lost Item Reports
+
+## FR-020: Create Lost Report
+
+Authenticated users shall be able to create a lost-item report.
+
+The report shall contain:
+
+- Item title
+- Category
+- Description
+- Date lost
+- Approximate location
+- Images
+- Additional identifying information
+
+## FR-021: Validate Lost Report
+
+The system shall validate required fields before submitting a lost report.
+
+## FR-022: Store Lost Report
+
+The system shall store the report and assign it a unique identifier.
+
+## FR-023: Lost Report Status
+
+A lost report may have one of the following statuses:
+
+- Draft
+- Pending Review
+- Approved
+- Rejected
+- Matched
+- Claim in Progress
+- Returned
+- Closed
+- Withdrawn
+
+---
+
+# 11. Found Item Reports
+
+## FR-024: Create Found Report
+
+Authenticated users shall be able to create a found-item report.
+
+The report shall contain:
+
+- Item title
+- Category
+- Description
+- Date found
+- Approximate location
+- Images
+- Additional identifying information
+
+## FR-025: Validate Found Report
+
+The system shall validate required fields before submitting a found report.
+
+## FR-026: Store Found Report
+
+The system shall store the report and assign it a unique identifier.
+
+## FR-027: Found Report Status
+
+A found report may have one of the following statuses:
+
+- Draft
+- Pending Review
+- Approved
+- Rejected
+- Matched
+- Claim in Progress
+- Returned
+- Closed
+- Withdrawn
+
+---
+
+# 12. Report Images
+
+## FR-028: Upload Images
+
+Users shall be able to upload images when creating or editing eligible reports.
+
+## FR-029: Validate Images
+
+The system shall validate:
+
+- File type
+- File size
+- Number of uploaded images
+
+## FR-030: Store Images
+
+The system shall store uploaded images securely.
+
+Large image files shall not be stored directly inside the relational database.
+
+---
+
+# 13. Report Management
+
+## FR-031: View Own Reports
+
+Authenticated users shall be able to view reports they created.
+
+## FR-032: View Report Status
+
+Users shall be able to view the current status of their reports.
+
+## FR-033: Edit Report
+
+Users shall be able to edit their own reports when the current status allows editing.
+
+## FR-034: Withdraw Report
+
+Users shall be able to withdraw eligible reports.
+
+## FR-035: Report History
+
+The system shall maintain important status changes associated with reports.
+
+---
+
+# 14. AI-Assisted Matching
+
+## FR-036: Identify Potential Matches
+
+The system shall identify potential matches between approved lost and found reports.
+
+## FR-037: Matching Factors
+
+The matching system may consider:
+
+- Item category
+- Item title
+- Description
+- Keywords
+- Item attributes
+- Location
+- Date
+- Image similarity
+
+## FR-038: Match Score
+
+The system shall calculate a match or similarity score for potential matches.
+
+## FR-039: Match Suggestions
+
+The system shall present potential matches to relevant users and authorized staff.
+
+## FR-040: AI Advisory Role
+
+The AI system shall provide potential matches rather than automatically confirming ownership.
+
+The final decision shall be made through the claim verification process.
+
+## FR-041: Match Status
+
+A potential match may have a status such as:
+
+- Suggested
+- Under Review
+- Confirmed
+- Rejected
+- Expired
+
+---
+
+# 15. Claim Process
+
+## FR-042: Submit Claim
+
+An authenticated user shall be able to submit a claim for an available found item.
+
+## FR-043: Claim Information
+
+The system may require information to help verify ownership.
 
 Examples include:
 
-- Most recent
-- Location
-- Relevance
+- Additional item details
+- Unique characteristics
+- Approximate time the item was lost
+- Approximate location
+- Proof of ownership when appropriate
 
----
+## FR-044: Claim Status
 
-# 8. AI Matching System
-
-## FR-024 - Identify Potential Matches
-
-The system shall analyze active lost and found reports to identify potentially related reports.
-
-### FR-025 - Matching Signals
-
-The matching system may use multiple signals, including:
-
-- Image similarity
-- Text similarity
-- Item category
-- Color
-- Brand
-- Model
-- Location
-- Date and time
-
-### FR-026 - Generate Match Score
-
-The matching system shall generate a score representing how strongly two reports are related.
-
-### FR-027 - Rank Matches
-
-The system shall rank potential matches according to their matching scores.
-
-### FR-028 - Match Explanation
-
-Where possible, the system should provide useful information explaining why two reports were considered similar.
-
-For example:
-
-- Same item category
-- Similar color
-- Similar image
-- Same brand
-- Nearby location
-- Similar date
-
-### FR-029 - Match Review
-
-The system shall allow users to review potential matches before taking further action.
-
-### FR-030 - Match Score Definition
-
-The system shall clearly distinguish between a match score and model evaluation metrics.
-
-A match score shall not be presented as model accuracy.
-
----
-
-# 9. Notifications
-
-## FR-031 - Potential Match Notification
-
-The system shall notify users when a relevant potential match is identified.
-
-### FR-032 - Claim Notification
-
-The system shall notify the relevant user when someone submits a claim.
-
-### FR-033 - Claim Status Notification
-
-The system shall notify users when the status of their claim changes.
-
-### FR-034 - Report Notifications
-
-The system may notify users about important changes to their reports.
-
----
-
-# 10. Claims
-
-## FR-035 - Submit Claim
-
-The system shall allow an authenticated user to submit a claim for a found item.
-
-### FR-036 - Claim Information
-
-A claim may require the claimant to provide information supporting their ownership.
-
-### FR-037 - Claim Status
-
-Claims shall have a status.
-
-Possible statuses include:
+A claim may have the following statuses:
 
 - Pending
 - Under Review
 - Approved
 - Rejected
 - Cancelled
+- Completed
 
-### FR-038 - Multiple Claims
+## FR-045: Claim Review
 
-The system shall support multiple claims for the same found item when necessary.
+Authorized staff shall be able to review submitted claims.
 
-### FR-039 - Claim Review
+## FR-046: Claim Decision
 
-The system shall provide a mechanism for reviewing claims.
+Authorized staff shall be able to approve or reject claims.
 
-### FR-040 - Claim Decision
+## FR-047: Claim History
 
-An authorized user or administrator shall be able to approve or reject a claim according to the verification process.
-
----
-
-# 11. Ownership Verification
-
-## FR-041 - Private Ownership Information
-
-The system shall allow users creating lost reports to provide private information that can help prove ownership.
-
-Examples include:
-
-- Unique scratches
-- Device details
-- Personal markings
-- Unique accessories
-- Other private identifying characteristics
-
-### FR-042 - Private Information Protection
-
-Private ownership information shall not be publicly visible.
-
-### FR-043 - Ownership Verification
-
-The system shall support an ownership verification process before an item is considered successfully returned.
-
-### FR-044 - Verification Result
-
-The verification process shall produce a result such as:
-
-- Verified
-- Not Verified
-- Requires Further Review
-
-### FR-045 - Match Does Not Prove Ownership
-
-A high AI match score shall not automatically approve ownership.
+Users shall be able to view the status of their claims.
 
 ---
 
-# 12. Item Return Process
+# 16. Item Return Process
 
-## FR-046 - Return Status
+## FR-048: Mark Item as Returned
 
-The system shall track the state of the return process.
+Authorized staff shall be able to mark an item as returned after the handover is completed.
 
-Possible states include:
+## FR-049: Record Return
 
-- Match Found
-- Claim Submitted
-- Verification
-- Approved
-- Return Pending
-- Returned
-- Disputed
-- Closed
+The system shall record:
 
-### FR-047 - Return Confirmation
-
-The system shall allow authorized parties to confirm that an item has been returned.
-
-### FR-048 - Case Closure
-
-The system shall allow a resolved case to be closed.
-
----
-
-# 13. Reports and Moderation
-
-## FR-049 - Report Content
-
-Users shall be able to report suspicious or inappropriate content.
-
-### FR-050 - Report Review
-
-Administrators shall be able to review reported content.
-
-### FR-051 - Report Action
-
-Administrators shall be able to take appropriate actions on reported content.
-
-Possible actions include:
-
-- No action
-- Remove content
-- Restrict content
-- Suspend account
-- Ban account
-
----
-
-# 14. Suspicious Activity
-
-## FR-052 - Suspicious Activity Detection
-
-The system should support identifying potentially suspicious behavior.
-
-Examples may include:
-
-- Multiple suspicious claims
-- Repeated false reports
-- Unusual account activity
-- Repeated attempts to claim unrelated items
-
-### FR-053 - Administrative Review
-
-Administrators shall be able to review suspicious activity.
-
----
-
-# 15. Administration
-
-## FR-054 - Admin Dashboard
-
-The system shall provide an administrative dashboard.
-
-### FR-055 - User Management
-
-Administrators shall be able to:
-
-- View users
-- Search users
-- Change account status
-- Review user activity
-
-### FR-056 - Report Management
-
-Administrators shall be able to:
-
-- View reports
-- Search reports
-- Review reports
-- Change report status when necessary
-
-### FR-057 - Claim Management
-
-Administrators shall be able to review and manage claims.
-
-### FR-058 - Case Management
-
-Administrators shall be able to review cases that require manual intervention.
-
-### FR-059 - System Statistics
-
-The administration system should provide basic statistics such as:
-
-- Number of users
-- Number of lost reports
-- Number of found reports
-- Number of potential matches
-- Number of claims
-- Number of successfully returned items
-
----
-
-# 16. Permissions and Authorization
-
-## FR-060 - Role-Based Access Control
-
-The system shall implement role-based access control.
-
-Possible roles include:
-
+- Item
+- Related claim
 - User
-- Administrator
+- Staff member
+- Return date
+- Return status
+- Optional notes
 
-### FR-061 - Resource Ownership
+## FR-050: Complete Claim
 
-Users shall only be able to modify resources they are authorized to modify.
+After successful return, the related claim shall be marked as completed.
 
-For example, a user shall not be able to edit another user's report.
+## FR-051: Close Report
 
-### FR-062 - Administrative Access
-
-Administrative functions shall only be accessible to authorized administrators.
+After successful return, the related report shall be updated and closed.
 
 ---
 
-# 17. Audit and Activity Tracking
+# 17. Notifications
 
-## FR-063 - Important Actions
+## FR-052: Generate Notifications
 
-The system should record important actions performed by users and administrators.
+The system shall generate notifications for important events.
 
 Examples include:
 
-- Creating reports
-- Updating reports
-- Submitting claims
-- Approving claims
-- Rejecting claims
-- Suspending users
-- Closing cases
+- Report approved
+- Report rejected
+- Potential match found
+- Claim submitted
+- Claim approved
+- Claim rejected
+- Item returned
 
-### FR-064 - Audit Records
+## FR-053: View Notifications
 
-Audit records should contain sufficient information to determine:
+Authenticated users shall be able to view their notifications.
 
-- Who performed the action
-- What action was performed
-- When it occurred
-- Which resource was affected
+## FR-054: Mark Notification as Read
+
+Users shall be able to mark notifications as read.
 
 ---
 
-# 18. Non-Functional Requirements
+# 18. Staff Dashboard
 
-## 18.1 Security
+## FR-055: Staff Dashboard
+
+The system shall provide a dedicated dashboard for authorized staff.
+
+## FR-056: Dashboard Overview
+
+The dashboard shall display relevant operational information including:
+
+- Total reports
+- Pending reports
+- Lost reports
+- Found reports
+- Potential matches
+- Pending claims
+- Returned items
+
+## FR-057: Review Reports
+
+Staff shall be able to review submitted reports.
+
+## FR-058: Approve Reports
+
+Staff shall be able to approve reports.
+
+## FR-059: Reject Reports
+
+Staff shall be able to reject reports.
+
+Staff should be able to provide a rejection reason.
+
+## FR-060: Manage Reports
+
+Staff shall be able to:
+
+- Search reports
+- Filter reports
+- View reports
+- Update eligible reports
+- Change report status
+
+---
+
+# 19. Claim Management
+
+## FR-061: View Claims
+
+Staff shall be able to view claims requiring review.
+
+## FR-062: Inspect Claim
+
+Staff shall be able to inspect:
+
+- Claiming user
+- Claimed item
+- Claim information
+- Related lost report
+- Related found report
+- Potential match information
+
+## FR-063: Approve Claim
+
+Staff shall be able to approve a claim after successful verification.
+
+## FR-064: Reject Claim
+
+Staff shall be able to reject a claim when ownership cannot be verified.
+
+## FR-065: Record Decision
+
+The system shall record the staff member responsible for the decision and the decision date.
+
+---
+
+# 20. User Management
+
+## FR-066: View Users
+
+Administrators shall be able to view registered users.
+
+## FR-067: Search Users
+
+Administrators shall be able to search users.
+
+## FR-068: View User Details
+
+Administrators shall be able to view relevant account information.
+
+## FR-069: Suspend User
+
+Administrators shall be able to suspend user accounts.
+
+## FR-070: Restore User
+
+Administrators shall be able to restore suspended accounts.
+
+## FR-071: Manage Roles
+
+Administrators shall be able to assign authorized roles.
+
+---
+
+# 21. Category Management
+
+## FR-072: Manage Categories
+
+Authorized staff or administrators shall be able to manage item categories.
+
+They shall be able to:
+
+- Create categories
+- Edit categories
+- Deactivate categories
+
+Example categories include:
+
+- Electronics
+- Documents
+- Clothing
+- Accessories
+- Keys
+- Bags
+- Books
+- Other
+
+---
+
+# 22. Location Management
+
+## FR-073: Manage Locations
+
+Authorized staff or administrators shall be able to manage institution locations.
+
+Examples include:
+
+- Buildings
+- Classrooms
+- Library
+- Cafeteria
+- Parking areas
+- Campus entrances
+
+---
+
+# 23. Search and Filtering
+
+## FR-074: Keyword Search
+
+The system shall allow users to search reports using keywords.
+
+## FR-075: Filter by Type
+
+The system shall allow users to filter between:
+
+- Lost
+- Found
+
+## FR-076: Filter by Category
+
+The system shall allow users to filter reports by item category.
+
+## FR-077: Filter by Location
+
+The system shall allow users to filter reports by location.
+
+## FR-078: Filter by Date
+
+The system shall allow users to filter reports by date or date range.
+
+## FR-079: Filter by Status
+
+Authorized users shall be able to filter reports by status where appropriate.
+
+## FR-080: Sort Results
+
+The system shall support sorting by:
+
+- Newest
+- Oldest
+- Relevance
+
+---
+
+# 24. Administration
+
+## FR-081: Admin Dashboard
+
+Administrators shall have access to a system administration dashboard.
+
+## FR-082: System Overview
+
+The dashboard shall provide an overview of:
+
+- Total users
+- Total reports
+- Lost reports
+- Found reports
+- Total claims
+- Pending claims
+- Returned items
+
+## FR-083: Activity Monitoring
+
+The system shall maintain important administrative activity records.
+
+---
+
+# 25. Analytics
+
+## FR-084: Reports Analytics
+
+Authorized staff shall be able to view report statistics.
+
+Possible statistics include:
+
+- Lost reports over time
+- Found reports over time
+- Reports by category
+- Reports by location
+- Successful returns
+- Pending reports
+
+## FR-085: Claim Analytics
+
+Authorized staff shall be able to view claim statistics.
+
+Possible statistics include:
+
+- Total claims
+- Approved claims
+- Rejected claims
+- Pending claims
+- Average claim processing time
+
+## FR-086: Matching Analytics
+
+The system may provide statistics related to AI-assisted matching.
+
+Possible statistics include:
+
+- Potential matches generated
+- Confirmed matches
+- Rejected matches
+- Successful returns resulting from matches
+
+---
+
+# 26. Non-Functional Requirements
+
+## 26.1 Performance
 
 ### NFR-001
 
-The system shall securely authenticate users.
+The system shall provide acceptable response times for normal operations.
 
 ### NFR-002
 
-Passwords shall be securely hashed.
+The system shall use pagination when retrieving large numbers of reports.
 
 ### NFR-003
 
-Sensitive configuration and secrets shall not be stored directly in source code.
+The system shall optimize image loading.
 
 ### NFR-004
 
-Private ownership information shall not be exposed through public APIs.
+The system shall avoid unnecessary API requests.
+
+---
+
+# 27. Security Requirements
 
 ### NFR-005
 
-The backend shall validate and sanitize user input.
+Passwords shall be securely hashed.
 
 ### NFR-006
 
-Uploaded files shall be validated before being stored or processed.
+Protected API endpoints shall require authentication.
 
 ### NFR-007
 
-The system shall enforce authorization checks for protected resources.
-
----
-
-## 18.2 Performance
+The system shall enforce role-based authorization.
 
 ### NFR-008
 
-The API should respond within an acceptable time under normal system load.
+Users shall only be able to access resources they are authorized to access.
 
 ### NFR-009
 
-The matching system should process reports asynchronously when matching operations are computationally expensive.
+The system shall validate and sanitize user input.
 
 ### NFR-010
 
-The system should avoid unnecessary repeated AI processing.
+The system shall protect against common web vulnerabilities, including:
 
----
-
-## 18.3 Reliability
+- SQL Injection
+- Cross-Site Scripting (XSS)
+- Cross-Site Request Forgery (CSRF)
+- Broken access control
+- Malicious file uploads
 
 ### NFR-011
 
-The system should handle failures without corrupting stored data.
+Sensitive information shall not be exposed through public reports or API responses.
 
 ### NFR-012
 
-Database operations involving multiple related changes should maintain data consistency.
+Authentication credentials shall not be exposed to the frontend unnecessarily.
+
+---
+
+# 28. Privacy Requirements
 
 ### NFR-013
 
-The system should provide appropriate error handling and meaningful API responses.
-
----
-
-## 18.4 Scalability
+The system shall minimize personal information displayed publicly.
 
 ### NFR-014
 
-The architecture should allow individual components to be improved or extracted into separate services if the system grows.
+Private user information shall only be accessible to authorized users and staff.
 
 ### NFR-015
 
-The matching system should be designed so that more advanced AI models can be introduced without rewriting the entire backend.
-
----
-
-## 18.5 Maintainability
+Claim verification information shall not be publicly visible.
 
 ### NFR-016
 
-The backend shall follow a modular architecture.
+The system shall not expose sensitive ownership information through public match suggestions.
+
+---
+
+# 29. Availability and Reliability
 
 ### NFR-017
 
-The codebase shall follow consistent coding and naming conventions.
+The production system should be available continuously.
 
 ### NFR-018
 
-The project shall use automated testing for critical functionality.
+The system shall handle temporary service failures gracefully.
 
 ### NFR-019
 
-Database schema changes shall be managed using migrations.
+The system shall provide meaningful error messages when an operation fails.
 
 ### NFR-020
 
-The project shall maintain technical documentation for major architectural decisions.
+Important data shall be backed up according to the deployment environment.
 
 ---
 
-## 18.6 Deployment
+# 30. Usability
 
 ### NFR-021
 
-The application environment shall be reproducible using Docker.
+The interface shall be simple enough for users with limited technical experience.
 
 ### NFR-022
 
-Application configuration shall be managed through environment variables.
+The system shall provide clear feedback after important actions.
+
+Examples:
+
+- Report submitted successfully
+- Report approved
+- Report rejected
+- Claim submitted
+- Claim approved
+- Profile updated
 
 ### NFR-023
 
-The system should support separate development and production environments.
+Validation errors shall clearly explain what the user needs to correct.
 
 ### NFR-024
 
-The project should use CI/CD to automatically validate changes before deployment.
+The system shall use consistent navigation and terminology.
 
 ---
 
-# 19. Core Business Rules
+# 31. Responsive Design
 
-## BR-001
+### NFR-025
 
-Only authenticated users can create reports.
+The web application shall be responsive.
 
-## BR-002
+It shall support:
 
-Only the owner of a report can modify or deactivate it unless an administrator intervenes.
+- Desktop
+- Laptop
+- Tablet
+- Mobile browser
 
-## BR-003
+### NFR-026
 
-Private ownership information must never be publicly displayed.
+Core functionality shall remain usable on small screens.
 
-## BR-004
+### NFR-027
 
-A high match score does not automatically prove ownership.
-
-## BR-005
-
-A claim must go through the defined verification process before an item is marked as successfully returned.
-
-## BR-006
-
-A user cannot claim their own found report as a lost item match.
-
-## BR-007
-
-Multiple claims may exist for the same item.
-
-## BR-008
-
-Only authorized users can approve or reject claims.
-
-## BR-009
-
-Administrators can intervene in disputed or suspicious cases.
-
-## BR-010
-
-A resolved report should not continue generating unnecessary potential matches.
+Forms shall be usable on mobile browsers.
 
 ---
 
-# 20. Main User Flows
+# 32. Accessibility
 
-## Lost Item Flow
+### NFR-028
 
-    Register / Login
-          |
-          v
-    Create Lost Report
-          |
-          v
-    Add Item Information
-          |
-          v
-    Add Images
-          |
-          v
-    Add Location and Date
-          |
-          v
-    Add Private Ownership Details
-          |
-          v
-    Submit Report
-          |
-          v
-    System Searches for Matches
-          |
-          v
-    Potential Match Found
-          |
-          v
-    User Reviews Match
-          |
-          v
-    Claim / Verification
-          |
-          v
-    Item Returned
+The interface should follow basic accessibility practices.
 
-## Found Item Flow
+The system should provide:
 
-    Register / Login
-          |
-          v
-    Create Found Report
-          |
-          v
-    Add Item Information
-          |
-          v
-    Add Images
-          |
-          v
-    Add Location and Date
-          |
-          v
-    Submit Report
-          |
-          v
-    System Searches for Lost Reports
-          |
-          v
-    Potential Match Found
-          |
-          v
-    Owner May Submit Claim
-          |
-          v
-    Ownership Verification
-          |
-          v
-    Item Returned
-
-## Admin Flow
-
-    Admin Login
-          |
-          v
-    Admin Dashboard
-          |
-     +----+----+
-     |    |    |
-     v    v    v
-   Users Reports Claims
-     |    |    |
-     +----+----+
-          |
-          v
-    Review / Action
-          |
-          v
-      Case Resolved
+- Clear form labels
+- Keyboard navigation
+- Appropriate color contrast
+- Alternative text for meaningful images
+- Clear error messages
+- Visible focus states
 
 ---
 
-# 21. Initial Project Scope
+# 33. Maintainability
 
-The first version of Mafqoodi will focus on the core lost and found workflow.
+### NFR-029
 
-### Included in Initial Scope
+The system shall use a modular architecture.
 
-- User authentication
-- User profiles
-- Lost reports
-- Found reports
-- Image uploads
-- Search and filtering
-- Basic notifications
-- Claims
-- Ownership verification
-- Basic AI matching
-- Admin management
+### NFR-030
 
-### Potentially Deferred
+Frontend and backend responsibilities shall remain separated.
 
-The following features may be implemented after the core system is stable:
+### NFR-031
 
-- Advanced recommendation systems
-- Organization accounts
-- University-specific communities
-- QR-based identification
-- Advanced analytics
-- Advanced fraud detection
-- Real-time chat
-- Advanced location intelligence
-- More sophisticated AI models
+Business logic shall not be tightly coupled to the user interface.
+
+### NFR-032
+
+The API shall be documented.
+
+### NFR-033
+
+The codebase shall follow consistent naming and project structure conventions.
 
 ---
 
-# 22. Success Criteria
+# 34. Scalability
 
-The initial version of Mafqoodi will be considered successful when a user can:
+### NFR-034
 
-1. Create an account.
-2. Report a lost item.
-3. Report a found item.
-4. Search existing reports.
-5. Receive potential matches.
-6. Review the match information.
-7. Submit a claim.
-8. Complete the ownership verification process.
-9. Resolve the case and record the item as returned.
+The backend architecture shall support increasing numbers of users and reports.
 
-The system should also allow administrators to monitor and manage the complete process.
+### NFR-035
+
+The database design shall allow the system to support multiple institutions in future versions.
+
+### NFR-036
+
+The API architecture shall allow future clients such as mobile applications to use the same backend.
+
+---
+
+# 35. Web Application Architecture Requirements
+
+The system shall follow a client-server architecture.
+
+```text
+                    Mafqoodi Web Application
+                              |
+                +-------------+-------------+
+                |                           |
+             Frontend                   Backend API
+          Next.js / React                 FastAPI
+                |                           |
+                |              +------------+------------+
+                |              |            |            |
+                |          PostgreSQL    AI Module   Object Storage
+                |
+           Web Browser
