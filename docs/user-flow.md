@@ -6,850 +6,708 @@
 
 **Goal:** Browse publicly available lost and found reports without creating an account.
 
-**Preconditions:**
+### Preconditions
+
 - User is not authenticated.
 - Public reports are available.
 
 ### Main Flow
 
 1. Guest opens Mafqoodi.
-2. System displays the public home page.
-3. Guest opens the lost and found reports.
+2. System displays the public homepage.
+3. Guest selects Lost Items or Found Items.
 4. System displays publicly available reports.
-5. Guest can search and filter reports.
-6. Guest opens a report.
-7. System displays the public information of the report.
-8. System hides private ownership information.
-9. Guest can choose to register or log in if they want to perform an action that requires authentication.
+5. Guest can search reports.
+6. Guest can apply filters.
+7. Guest can sort results.
+8. Guest selects a report.
+9. System displays the public report details.
 
-### Restricted Actions
+### Alternative Flows
 
-A guest cannot:
+**No Results:**
 
-- Create a lost report.
-- Create a found report.
-- Submit a claim.
-- Add private ownership information.
-- Manage reports.
-- Receive authenticated notifications.
+1. Guest performs a search.
+2. System finds no matching reports.
+3. System displays a "No results found" message.
+4. Guest can modify the search or filters.
 
-### Result
+**Protected Action:**
 
-The guest can browse publicly available information without creating an account.
+1. Guest attempts to create a report or submit a claim.
+2. System detects that the guest is not authenticated.
+3. System redirects the guest to Login or Register.
 
 ---
 
-## 2. User Registration
+# 2. Register Account
 
 **Actor:** Guest
 
-**Goal:** Create a new Mafqoodi account.
-
-**Preconditions:**
-- User is not authenticated.
-- User has the required registration information.
+**Goal:** Create a Mafqoodi account.
 
 ### Main Flow
 
-1. User opens the registration page.
+1. Guest selects Register.
 2. System displays the registration form.
-3. User enters the required information.
+3. Guest enters their full name.
+4. Guest enters their email.
+5. Guest enters a password.
+6. Guest confirms the password.
+7. Guest submits the form.
+8. System validates the information.
+9. System checks whether the email already exists.
+10. System creates the account.
+11. System authenticates the user or redirects them to Login.
+12. System displays the user dashboard.
+
+### Alternative Flows
+
+**Invalid Email:**
+
+1. User enters an invalid email.
+2. System displays a validation error.
+3. User corrects the email.
+
+**Email Already Exists:**
+
+1. User submits an already registered email.
+2. System displays an account-exists message.
+3. User can log in instead.
+
+**Passwords Do Not Match:**
+
+1. User enters different passwords.
+2. System displays a password mismatch error.
+3. User corrects the passwords.
+
+---
+
+# 3. Login
+
+**Actor:** User / Staff / Administrator
+
+**Goal:** Access the appropriate Mafqoodi interface.
+
+### Main Flow
+
+1. User opens Login.
+2. User enters their email.
+3. User enters their password.
 4. User submits the form.
-5. System validates the submitted information.
-6. System checks whether the account already exists.
-7. System creates the user account.
-8. System confirms successful registration.
-9. User is redirected to the login page or authenticated automatically.
+5. System validates the credentials.
+6. System authenticates the user.
+7. System identifies the user's role.
+8. System redirects the user to the appropriate dashboard or page.
 
 ### Alternative Flows
 
-#### Account Already Exists
+**Invalid Credentials:**
 
-1. System detects that the account already exists.
-2. System informs the user.
-3. User can log in or use different information.
+1. User submits incorrect credentials.
+2. System rejects the login.
+3. System displays an error.
+4. User can try again.
 
-### Error Cases
+**Suspended Account:**
 
-- Required information is missing.
-- Submitted information is invalid.
-- Account information is already registered.
-
-### Result
-
-A new user account is created.
+1. User enters valid credentials.
+2. System detects that the account is suspended.
+3. System prevents access.
+4. System displays the account status.
 
 ---
 
-## 3. User Login
+# 4. Logout
 
-**Actor:** Registered User / Administrator
-
-**Goal:** Access the Mafqoodi account.
-
-**Preconditions:**
-- User has an existing account.
-- Account is allowed to log in.
+**Actor:** Authenticated User
 
 ### Main Flow
 
-1. User opens the login page.
-2. User enters their credentials.
-3. User submits the form.
-4. System validates the credentials.
-5. System authenticates the user.
-6. System creates an authenticated session.
-7. User is redirected to the appropriate application area.
-
-### Alternative Flows
-
-#### Invalid Credentials
-
-1. System detects invalid credentials.
-2. System displays an error message.
-3. User can try again.
-
-#### Suspended or Banned Account
-
-1. System detects that the account is not active.
-2. System prevents login.
-3. System informs the user.
-
-### Result
-
-The user is authenticated and can access authorized features.
+1. User opens the account menu.
+2. User selects Logout.
+3. System ends the authenticated session.
+4. System redirects the user to the public homepage.
 
 ---
 
-# User Reports
-
-## 4. Report a Lost Item
+# 5. Manage Profile
 
 **Actor:** Registered User
 
-**Goal:** Report an item that the user has lost.
-
-**Preconditions:**
-- User is authenticated.
-- User has information about the lost item.
-
 ### Main Flow
 
-1. User opens **Report Lost Item**.
-2. System displays the lost item form.
-3. User enters item information.
-4. User uploads one or more images if available.
-5. User enters the lost location.
-6. User enters the lost date and approximate time.
-7. User adds private ownership information.
-8. User reviews the report.
-9. User submits the report.
-10. System validates the submitted information.
-11. System creates the lost report.
-12. System stores the uploaded images.
-13. System makes the report available for searching.
-14. System starts the matching process.
-15. System confirms successful report creation.
-
-### Alternative Flows
-
-#### No Image
-
-1. User submits the report without an image.
-2. System checks whether an image is required.
-3. If images are optional, the system accepts the report.
-4. System creates the report.
-
-#### Potential Match Found
-
-1. System identifies one or more potential matches.
-2. System stores the matches.
-3. System notifies the user.
-
-### Error Cases
-
-- Required information is missing.
-- Uploaded image is invalid.
-- Uploaded image exceeds the allowed size.
-- Report cannot be saved.
-
-### Result
-
-A lost item report is created and becomes available for searching and matching.
+1. User opens their profile.
+2. System displays profile information.
+3. User selects Edit Profile.
+4. User changes permitted information.
+5. User submits the changes.
+6. System validates the information.
+7. System saves the changes.
+8. System displays a success message.
 
 ---
 
-## 5. Report a Found Item
+# 6. Create Lost Item Report
 
 **Actor:** Registered User
 
-**Goal:** Report an item that the user has found.
+**Goal:** Report an item that has been lost.
 
-**Preconditions:**
+### Preconditions
+
 - User is authenticated.
-- User has information about the found item.
 
 ### Main Flow
 
-1. User opens **Report Found Item**.
-2. System displays the found item form.
-3. User enters item information.
-4. User uploads one or more images if available.
-5. User enters the found location.
-6. User enters the found date and approximate time.
-7. User adds additional information.
-8. User reviews the report.
-9. User submits the report.
-10. System validates the submitted information.
-11. System creates the found report.
-12. System stores the uploaded images.
-13. System makes the report available for searching.
-14. System starts the matching process.
-15. System confirms successful report creation.
+1. User opens the dashboard.
+2. User selects Report Lost Item.
+3. System displays the lost-item form.
+4. User enters the item title.
+5. User selects the category.
+6. User enters a description.
+7. User enters the approximate location.
+8. User selects the date the item was lost.
+9. User enters additional identifying information.
+10. User uploads optional images.
+11. User submits the report.
+12. System validates the information.
+13. System creates the report.
+14. System assigns a unique report ID.
+15. System sets the report status to Pending Review.
+16. System displays a confirmation message.
 
 ### Alternative Flows
 
-#### Potential Match Found
+**Missing Information:**
 
-1. System identifies one or more potential lost reports.
-2. System stores the matches.
-3. System notifies the relevant users.
+1. User submits the form.
+2. System detects missing required information.
+3. System displays validation errors.
+4. User corrects the form.
+5. User submits again.
 
-### Error Cases
+**Invalid Image:**
 
-- Required information is missing.
-- Uploaded image is invalid.
-- Uploaded image exceeds the allowed size.
-- Report cannot be saved.
-
-### Result
-
-A found item report is created and becomes available for searching and matching.
+1. User uploads an invalid image.
+2. System rejects the image.
+3. System displays an error.
+4. User uploads a valid image or removes it.
 
 ---
 
-## 6. Manage a Report
+# 7. Create Found Item Report
 
-**Actor:** Report Owner
+**Actor:** Registered User
 
-**Goal:** Update or deactivate their own report.
+**Goal:** Report an item that has been found.
 
-**Preconditions:**
+### Preconditions
+
 - User is authenticated.
-- User owns the report.
 
 ### Main Flow
 
-1. User opens their report.
-2. System displays available management options.
-3. User chooses to edit or deactivate the report.
-4. User updates the information if editing.
-5. System validates the changes.
-6. System saves the changes.
-7. System updates the report status if necessary.
-8. System determines whether matching needs to be performed again.
-
-### Alternative Flows
-
-#### Report Already Resolved
-
-1. User opens a resolved report.
-2. System restricts actions that are no longer allowed.
-3. User can view the report history if available.
-
-### Result
-
-The report is updated or deactivated.
+1. User opens the dashboard.
+2. User selects Report Found Item.
+3. System displays the found-item form.
+4. User enters the item title.
+5. User selects the category.
+6. User enters a description.
+7. User enters the approximate location.
+8. User selects the date the item was found.
+9. User enters additional identifying information.
+10. User uploads optional images.
+11. User submits the report.
+12. System validates the information.
+13. System creates the report.
+14. System assigns a unique report ID.
+15. System sets the report status to Pending Review.
+16. System displays a confirmation message.
 
 ---
 
-# Search and Discovery
+# 8. View and Manage My Reports
 
-## 7. Search and Filter Reports
-
-**Actor:** Guest / Registered User
-
-**Goal:** Find relevant lost or found reports.
-
-**Preconditions:**
-- Reports are available in the system.
+**Actor:** Registered User
 
 ### Main Flow
 
-1. User opens the search page.
-2. System displays available reports.
-3. User enters a search term or selects filters.
-4. System processes the search criteria.
+1. User opens My Reports.
+2. System retrieves the user's reports.
+3. System displays the reports.
+4. User can filter reports by type or status.
+5. User selects a report.
+6. System displays the report details.
+7. If the report is eligible, the user can edit or withdraw it.
+
+---
+
+# 9. Search Reports
+
+**Actor:** Guest / User / Staff / Administrator
+
+### Main Flow
+
+1. User opens the reports page.
+2. User enters a search keyword.
+3. User submits the search.
+4. System searches relevant report information.
 5. System displays matching reports.
-6. User can sort the results.
-7. User opens a report to view its public information.
+6. User can open a report.
 
-### Possible Filters
+### Alternative Flow
 
-- Report type
+1. System finds no matching reports.
+2. System displays a "No results found" message.
+3. User can modify the search.
+
+---
+
+# 10. Filter Reports
+
+**Actor:** Guest / User / Staff / Administrator
+
+### Main Flow
+
+1. User opens the reports page.
+2. User selects one or more filters.
+3. System applies the filters.
+4. System updates the displayed reports.
+
+Possible filters:
+
+- Lost / Found
 - Category
 - Location
 - Date
-- Brand
-- Color
 - Status
-
-### Alternative Flows
-
-#### No Results
-
-1. System finds no matching reports.
-2. System informs the user.
-3. User can modify the search criteria.
-
-### Result
-
-The user receives a list of relevant reports.
 
 ---
 
-## 8. View a Report
+# 11. View Report Details
 
-**Actor:** Guest / Registered User
-
-**Goal:** View information about a lost or found item.
+**Actor:** Guest / User / Staff / Administrator
 
 ### Main Flow
 
 1. User selects a report.
-2. System displays the report.
-3. System displays publicly available information.
-4. System displays available images.
-5. System hides private ownership information.
-6. User can return to the search results or continue with an available action.
-
-### Result
-
-The user can view public information without accessing private information.
+2. System retrieves the report.
+3. System checks the user's permissions.
+4. System displays the information allowed for that user.
 
 ---
 
-# AI Matching
-
-## 9. Potential Match Detection
+# 12. AI Match Detection
 
 **Actor:** System
 
-**Goal:** Identify lost and found reports that may refer to the same item.
+**Goal:** Identify potential matches between lost and found reports.
 
-**Preconditions:**
-- A new or updated report exists.
-- The report is active.
+### Preconditions
+
+- Relevant reports are approved.
+- Reports contain sufficient information.
 
 ### Main Flow
 
-1. A new report is created or an active report is updated.
-2. System identifies relevant opposite-type reports.
-3. System compares available information.
-4. System analyzes matching signals.
-5. System calculates a match score.
-6. System ranks potential matches.
+1. A new report is approved.
+2. System identifies compatible reports.
+3. AI matching analyzes available information.
+4. System compares relevant matching factors.
+5. System calculates similarity scores.
+6. System identifies potential matches.
 7. System stores the potential matches.
-8. System makes relevant matches available to users.
-9. System sends notifications when appropriate.
+8. System notifies relevant users and staff.
 
-### Matching Signals
+### Matching Factors
 
-- Image similarity
-- Text similarity
-- Item category
-- Color
-- Brand
-- Model
+The system may consider:
+
+- Category
+- Item title
+- Description
+- Keywords
+- Item attributes
 - Location
-- Date and time
+- Date
+- Images
 
 ### Important Rule
 
-> A match score represents how strongly two reports are related. It is **not model accuracy** and does not prove ownership.
+AI suggestions do not automatically confirm ownership.
 
-### Result
-
-Potential matches are generated and ranked for review.
+Final ownership verification must occur through the claim process.
 
 ---
 
-## 10. Review a Potential Match
+# 13. View Potential Match
 
-**Actor:** Registered User
-
-**Goal:** Determine whether a potential match may be their lost or found item.
-
-**Preconditions:**
-- A potential match exists.
+**Actor:** Registered User / Staff
 
 ### Main Flow
 
-1. User receives a potential match notification.
-2. User opens the potential match.
-3. System displays relevant public information.
-4. System displays the match score.
-5. System may display reasons for the match.
-6. User reviews the information.
-7. User decides whether to continue with the claim process.
+1. User receives a potential-match notification.
+2. User opens the notification.
+3. System displays the potential match.
+4. System displays relevant report information.
+5. User reviews the information.
+6. User may proceed to submit a claim.
 
-### Alternative Flows
-
-#### Not a Match
-
-1. User rejects or dismisses the potential match.
-2. System records the decision if required.
-3. The match is dismissed for that user.
-
-### Result
-
-The user decides whether to continue with the claim process.
+Staff can additionally review and manage the potential match.
 
 ---
 
-# Claims and Ownership Verification
-
-## 11. Submit a Claim
+# 14. Submit Claim
 
 **Actor:** Registered User
 
-**Goal:** Claim a found item that the user believes belongs to them.
+**Goal:** Claim a found item believed to belong to the user.
 
-**Preconditions:**
+### Preconditions
+
 - User is authenticated.
-- A relevant found report exists.
-- Item has not already been successfully returned.
+- Found item is eligible for claiming.
 
 ### Main Flow
 
-1. User opens the relevant found report.
-2. User selects **Claim Item**.
+1. User opens a found-item report.
+2. User selects Claim Item.
 3. System displays the claim form.
-4. User provides information supporting ownership.
+4. User provides ownership-related information.
 5. User submits the claim.
-6. System validates the claim.
+6. System validates the information.
 7. System creates the claim.
-8. Claim status is set to `Pending`.
-9. Relevant user or administrator is notified.
-10. Claim enters the verification process.
+8. System sets the claim status to Pending.
+9. System notifies staff.
+10. System displays the claim status to the user.
 
 ### Alternative Flows
 
-#### Multiple Claims
+**Item Unavailable:**
 
-1. Another user has already submitted a claim.
-2. System allows another claim if the item is still eligible.
-3. System keeps the claims separate.
-4. Each claim is reviewed independently.
+1. User attempts to claim an unavailable item.
+2. System prevents the claim.
+3. System explains that the item is no longer available.
 
-### Error Cases
+**Incomplete Claim:**
 
-- Item is no longer available for claims.
-- User has already submitted a claim for the item.
-- Required claim information is missing.
-
-### Result
-
-A claim is created and enters the ownership verification process.
+1. User submits incomplete information.
+2. System displays validation errors.
+3. User completes the missing information.
+4. User submits again.
 
 ---
 
-## 12. Ownership Verification
+# 15. Review Claim
 
-**Actor:** Authorized User / Administrator
+**Actor:** Lost and Found Staff
 
-**Goal:** Determine whether the claimant is the legitimate owner.
+**Goal:** Verify whether a claim is legitimate.
 
-**Preconditions:**
-- A claim has been submitted.
-- Ownership verification is required.
+### Preconditions
+
+- Staff member is authenticated.
+- A pending claim exists.
 
 ### Main Flow
 
-1. System provides the claim information to the authorized reviewer.
-2. Reviewer examines the claimant's information.
-3. Reviewer compares it with private ownership information.
-4. Reviewer evaluates the available evidence.
-5. Reviewer decides the verification result.
-6. System records the result.
-7. System updates the claim status.
-8. System notifies the relevant users.
-
-### Verification Results
-
-- `Verified`
-- `Not Verified`
-- `Requires Further Review`
-
-### Important Rule
-
-> A high AI match score does not automatically verify ownership.
-
-### Result
-
-The claim is verified, rejected, or sent for further review.
+1. Staff opens the staff dashboard.
+2. Staff opens Pending Claims.
+3. Staff selects a claim.
+4. System displays the claim details.
+5. Staff reviews the claimant information.
+6. Staff reviews the related reports.
+7. Staff evaluates ownership information.
+8. Staff decides whether the claim is valid.
+9. Staff approves or rejects the claim.
+10. System records the decision.
+11. System updates the claim status.
+12. System notifies the user.
 
 ---
 
-## 13. Approve or Reject a Claim
+# 16. Approve Claim
 
-**Actor:** Authorized User / Administrator
-
-**Goal:** Make a final decision about a submitted claim.
-
-**Preconditions:**
-- Claim has completed the required verification process.
+**Actor:** Lost and Found Staff
 
 ### Main Flow
 
-1. Reviewer opens the claim.
-2. Reviewer examines the available information.
-3. Reviewer reviews the verification result.
-4. Reviewer approves or rejects the claim.
-5. System updates the claim status.
-6. System notifies the relevant users.
-
-### Alternative Flows
-
-#### Requires Further Review
-
-1. Reviewer determines that the available information is insufficient.
-2. Claim status is changed to `Requires Further Review`.
-3. Additional information may be requested.
-4. Claim is reviewed again.
-
-### Result
-
-The claim receives an official decision.
+1. Staff opens a pending claim.
+2. Staff verifies ownership.
+3. Staff selects Approve.
+4. System updates the claim status.
+5. System updates the related report.
+6. System notifies the user.
+7. Staff proceeds with the return process.
 
 ---
 
-## 14. Confirm Item Return
+# 17. Reject Claim
 
-**Actor:** Authorized User / Administrator
-
-**Goal:** Record that the item has been successfully returned.
-
-**Preconditions:**
-- A claim has been approved.
-- The return process can proceed.
+**Actor:** Lost and Found Staff
 
 ### Main Flow
 
-1. System changes the case to `Return Pending`.
-2. Relevant users are notified.
-3. The item is returned.
-4. Authorized user confirms the return.
-5. System records the return.
-6. System updates the report status.
-7. System marks the claim as completed.
-8. System closes the case.
-9. System stops unnecessary future matching for the resolved reports.
-
-### Alternative Flows
-
-#### Return Does Not Occur
-
-1. The return is not completed.
-2. Case remains open.
-3. Relevant users or administrator can continue managing the case.
-
-### Result
-
-The item is recorded as returned and the case is closed.
+1. Staff opens a pending claim.
+2. Staff reviews the claim.
+3. Staff selects Reject.
+4. Staff provides an optional reason.
+5. System records the rejection.
+6. System changes the claim status to Rejected.
+7. System notifies the user.
 
 ---
 
-# Notifications and Moderation
+# 18. Return Item
 
-## 15. Receive Notifications
+**Actor:** Lost and Found Staff
 
-**Actor:** Registered User
+**Goal:** Record the successful return of an item.
 
-**Goal:** Receive important updates related to reports, matches, claims, and cases.
+### Preconditions
 
-### Notification Events
-
-The user may receive notifications when:
-
-- A potential match is found.
-- Someone submits a claim.
-- Claim status changes.
-- Report status changes.
-- Additional information is required.
-- Return process is updated.
+- Claim has been approved.
+- Item is available for return.
 
 ### Main Flow
 
-1. System detects an event requiring notification.
-2. System creates a notification.
-3. User receives the notification.
-4. User opens the notification.
-5. System redirects the user to the relevant report, claim, or case.
-
-### Result
-
-The user is informed about important activity.
+1. Staff opens the approved claim.
+2. Staff confirms the handover.
+3. Staff selects Mark as Returned.
+4. System displays a confirmation.
+5. Staff confirms the return.
+6. System records the return date.
+7. System records the responsible staff member.
+8. System marks the claim as Completed.
+9. System marks the related report as Returned or Closed.
+10. System notifies the user.
 
 ---
 
-## 16. Report Suspicious Content
+# 19. Review Report
 
-**Actor:** Registered User
+**Actor:** Lost and Found Staff
 
-**Goal:** Report suspicious or inappropriate content.
+**Goal:** Review a submitted report before making it publicly available.
 
 ### Main Flow
 
-1. User opens a report or relevant content.
-2. User selects **Report**.
-3. System displays the reporting form.
-4. User selects a reason.
-5. User optionally provides additional information.
-6. User submits the report.
-7. System records the report.
-8. Content is added to the moderation queue.
-9. Administrator can review it.
+1. Staff logs in.
+2. Staff opens the staff dashboard.
+3. Staff opens Pending Reports.
+4. Staff selects a report.
+5. System displays the report details.
+6. Staff reviews the information.
+7. Staff approves or rejects the report.
 
-### Result
+### Approval
 
-The reported content enters the moderation process.
+1. Staff approves the report.
+2. System changes the status to Approved.
+3. System makes the report publicly available.
+4. System starts or schedules matching.
+
+### Rejection
+
+1. Staff rejects the report.
+2. Staff provides a rejection reason.
+3. System changes the status to Rejected.
+4. System notifies the report owner.
 
 ---
 
-# Administration
+# 20. Staff Dashboard
 
-## 17. Admin Login
+**Actor:** Lost and Found Staff
+
+### Main Flow
+
+1. Staff logs in.
+2. System verifies the staff role.
+3. System displays the staff dashboard.
+4. Dashboard displays operational statistics.
+5. Staff can navigate to:
+
+- Reports
+- Claims
+- Potential Matches
+- Returned Items
+- Notifications
+- Analytics
+
+---
+
+# 21. Manage Users
 
 **Actor:** Administrator
 
-**Goal:** Access the administration system.
-
-**Preconditions:**
-- Administrator has an authorized account.
-
 ### Main Flow
 
-1. Administrator opens the admin login page.
-2. Administrator enters credentials.
-3. System validates the credentials.
-4. System verifies administrator permissions.
-5. System authenticates the administrator.
-6. Administrator is redirected to the admin dashboard.
-
-### Result
-
-Administrator gains access to authorized administrative functions.
+1. Administrator logs in.
+2. Administrator opens the admin dashboard.
+3. Administrator selects Users.
+4. System displays registered users.
+5. Administrator can search users.
+6. Administrator selects a user.
+7. System displays permitted user information.
+8. Administrator can suspend or restore the account.
 
 ---
 
-## 18. Admin Manage Users
+# 22. Suspend User
 
 **Actor:** Administrator
 
-**Goal:** Manage user accounts and review user activity.
-
 ### Main Flow
 
-1. Administrator opens the user management section.
-2. System displays user accounts.
-3. Administrator searches or filters users.
-4. Administrator opens a user profile.
-5. System displays permitted account information.
-6. Administrator may change the account status.
-7. System records the administrative action.
-8. System updates the account.
-
-### Possible Actions
-
-- View user
-- Search user
-- Suspend account
-- Ban account
-- Restore account
-- Review activity
-
-### Result
-
-The user account is managed according to administrative permissions.
+1. Administrator opens User Management.
+2. Administrator selects a user.
+3. Administrator selects Suspend User.
+4. System requests confirmation.
+5. Administrator confirms.
+6. System changes the account status.
+7. System prevents the user from performing restricted actions.
 
 ---
 
-## 19. Admin Review Reports
+# 23. Restore User
 
 **Actor:** Administrator
 
-**Goal:** Moderate lost and found reports.
-
 ### Main Flow
 
-1. Administrator opens the report management section.
-2. System displays reports.
-3. Administrator searches or filters reports.
-4. Administrator opens a report.
-5. Administrator reviews the report.
-6. Administrator takes an appropriate action.
-7. System records the action.
-8. System updates the report if necessary.
-
-### Possible Actions
-
-- Review
-- Remove inappropriate content
-- Restrict content
-- Change report status
-- Leave unchanged
-
-### Result
-
-The report is reviewed and appropriate action is taken.
+1. Administrator opens User Management.
+2. Administrator selects a suspended user.
+3. Administrator selects Restore User.
+4. System requests confirmation.
+5. Administrator confirms.
+6. System restores the account.
+7. User can access the system again.
 
 ---
 
-## 20. Admin Review Claims
+# 24. Manage Categories
 
-**Actor:** Administrator
-
-**Goal:** Review claims that require administrative intervention.
+**Actor:** Staff / Administrator
 
 ### Main Flow
 
-1. Administrator opens the claims section.
-2. System displays pending or flagged claims.
-3. Administrator selects a claim.
-4. System displays the relevant claim information.
-5. Administrator reviews the available evidence.
-6. Administrator checks the verification information.
-7. Administrator approves, rejects, or requests further review.
-8. System updates the claim.
-9. System notifies the relevant users.
-
-### Result
-
-The claim receives an administrative decision.
+1. Authorized user opens Category Management.
+2. System displays existing categories.
+3. User can create a category.
+4. User can edit a category.
+5. User can deactivate a category.
+6. System saves the changes.
 
 ---
 
-## 21. Admin Handle Dispute
+# 25. Manage Locations
 
-**Actor:** Administrator
-
-**Goal:** Resolve a disputed or suspicious lost-and-found case.
-
-**Preconditions:**
-- A case requires administrative intervention.
+**Actor:** Staff / Administrator
 
 ### Main Flow
 
-1. Administrator opens the disputed case.
-2. System displays the relevant reports, claims, users, and case history.
-3. Administrator reviews the available information.
-4. Administrator may request additional information.
-5. Administrator evaluates the evidence.
-6. Administrator makes a decision.
-7. System records the decision.
-8. System updates the case status.
-9. Relevant users are notified.
-
-### Result
-
-The dispute is resolved or moved to further review.
+1. Authorized user opens Location Management.
+2. System displays available locations.
+3. User can create a location.
+4. User can edit a location.
+5. User can deactivate a location.
+6. System saves the changes.
 
 ---
 
-## 22. Suspicious Activity Review
+# 26. View Notifications
 
-**Actor:** Administrator
-
-**Goal:** Review potentially suspicious user activity.
-
-### Possible Triggers
-
-- Multiple suspicious claims.
-- Repeated false reports.
-- Unusual account activity.
-- Repeated attempts to claim unrelated items.
-- Other suspicious behavior detected by the system.
+**Actor:** User / Staff / Administrator
 
 ### Main Flow
 
-1. System identifies potentially suspicious activity.
-2. System creates a review item.
-3. Administrator opens the suspicious activity record.
-4. System displays relevant activity and history.
-5. Administrator investigates the activity.
-6. Administrator decides whether action is required.
-7. System records the decision.
-8. Administrator may restrict, suspend, or ban the account.
-
-### Result
-
-The suspicious activity is reviewed and an appropriate action is taken.
+1. User opens the notification area.
+2. System retrieves the user's notifications.
+3. System displays unread and read notifications.
+4. User selects a notification.
+5. System opens the related information.
+6. System marks the notification as read when appropriate.
 
 ---
 
-## 23. User Logout
+# 27. View Analytics
 
-**Actor:** Registered User / Administrator
-
-**Goal:** End the current authenticated session.
+**Actor:** Staff / Administrator
 
 ### Main Flow
 
-1. User selects **Logout**.
-2. System terminates the authenticated session.
-3. System invalidates the authentication credentials or session.
-4. User is redirected to the public part of the application.
+1. Authorized user opens the dashboard.
+2. User selects Analytics.
+3. System retrieves relevant statistics.
+4. System displays charts and summaries.
 
-### Result
+Possible statistics include:
 
-The user is logged out.
+- Lost reports
+- Found reports
+- Reports by category
+- Reports by location
+- Claims
+- Successful returns
+- Average claim processing time
+- AI matching statistics
 
 ---
 
-# Core Lost-and-Found Journey
+# 28. Access Control Flow
 
-```text
-User Registers
-      |
-      v
-    Login
-      |
-      +----------------------+
-      |                      |
-      v                      v
-Lost Item Report       Found Item Report
-      |                      |
-      +----------+-----------+
-                 |
-                 v
-          Matching System
-                 |
-                 v
-          Potential Match
-                 |
-                 v
-            User Review
-                 |
-                 v
-               Claim
-                 |
-                 v
-      Ownership Verification
-                 |
-          +------+------+
-          |             |
-          v             v
-      Verified      Not Verified
-          |
-          v
-     Claim Approved
-          |
-          v
-     Return Pending
-          |
-          v
-      Item Returned
-          |
-          v
-       Case Closed
+**Actor:** Any User
+
+### Main Flow
+
+1. User requests a protected resource.
+2. System checks whether the user is authenticated.
+3. If the user is not authenticated, access is denied.
+4. If authenticated, system identifies the user's role.
+5. System checks whether the role has permission.
+6. If permission exists, the requested operation is allowed.
+7. If permission does not exist, access is denied.
+
+---
+
+# 29. Complete Lost Item Flow
+
+User → Register/Login → Create Lost Report → Submit Report → Pending Review → Staff Review → Approved → Public Report → AI Matching → Potential Match → User Reviews Match → Claim Submitted → Staff Verification → Claim Approved → Return Process → Item Returned → Claim Completed → Report Closed
+
+---
+
+# 30. Complete Found Item Flow
+
+User → Register/Login → Create Found Report → Submit Report → Pending Review → Staff Review → Approved → Public Found Report → AI Matching → Potential Lost Report Match → Claim Submitted → Staff Verification → Claim Approved → Item Returned → Report Closed
+
+---
+
+# 31. Complete Guest Flow
+
+Guest → Homepage → Lost Items / Found Items → Search / Filter → View Report → Continue Browsing
+
+If the guest wants to report or claim an item:
+
+Guest → Register / Login → Authenticated User Flow
+
+---
+
+# 32. Complete Staff Flow
+
+Staff → Login → Staff Dashboard → Review Reports / Review Claims / Review Matches / Analytics → Approve or Reject → Manage Return → Close Report
+
+---
+
+# 33. Complete Administrator Flow
+
+Administrator → Login → Admin Dashboard → Manage Users / Roles / Reports / Claims / Categories / Locations / Settings / Analytics / Activity Logs
+
+---
+
+# 34. Core Mafqoodi Flow
+
+Browse → Discover → Report → Review → Match → Claim → Verify → Return → Close
+
+The AI matching system assists the Match stage, while authorized staff remain responsible for verification and final decisions.
